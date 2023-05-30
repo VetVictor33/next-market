@@ -1,0 +1,40 @@
+.Form {
+    width: 600px;
+}
+
+.Form>.fields>.single-line {
+    width: 100%;
+}
+
+.Form>.fields>.double-field {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Form>.fields>.double-field>.double-line {
+    width: 50%;
+}
+
+.Form>.buttom-div {
+    margin-top: 70px;
+    padding-top: 20px;
+    border-top: #BFBFBF solid 1px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Form>.buttom-div>.bt-div {
+    display: flex;
+    gap: 10px;
+    max-height: 36px;
+}
+
+.Form>.buttom-div>.bt-div button:first-of-type {
+    text-decoration: underline;
+}
+
+.Form>.buttom-div>.alert-div {
+    max-width: 50%;
+
+}
