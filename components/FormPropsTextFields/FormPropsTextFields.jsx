@@ -5,13 +5,15 @@ import TextField from '@mui/material/TextField';
 import { Alert, Button, InputAdornment } from '@mui/material';
 import './Form.css'
 import { useRouter } from 'next/navigation';
+import { useLocalStorage } from 'react-use';
 
 export default function FormPropsTextFields() {
   const router = useRouter();
+  const [products, setProducts, removeProducts] = useLocalStorage('products');
   const [error, setError] = React.useState(false);
   const [success, setSucess] = React.useState(false);
   const [form, setForm] = React.useState(
-    { name: '', price: '', storage: '', description: '', altSrc: '' }
+    { name: '', price: 0.00, storage: 0.00, description: '', altSrc: '' }
   )
 
   const handleForm = (e) => {
@@ -24,10 +26,15 @@ export default function FormPropsTextFields() {
   }
 
   const handleSubmit = (e) => {
-    if (!form.name || !form.price || isNaN(form.price) || !form.estoque || isNaN(form.estoque) || !form.description || !form.altSrc) {
+    if (!form.name || !form.price || isNaN(form.price) || !form.storage || isNaN(form.storage) || !form.description || !form.altSrc) {
       setError(true);
       return
     }
+    const id = (products.slice(-1)[0].id) + 1;
+    const localProducts = [...products, { id, ...form }];
+    setProducts(localProducts);
+    setSucess(true);
+    setForm({ name: '', price: '', storage: '', description: '', altSrc: '' });
   }
 
   return (
@@ -45,15 +52,18 @@ export default function FormPropsTextFields() {
           className='single-line'
           required
           id="name"
+          value={form.name}
           label="Nome do produto"
           variant="standard"
           onChange={handleForm}
+
         />
         <div className='double-field'>
           <TextField
             className='double-line'
             required
             id="price"
+            value={form.price}
             label="Preço"
             type="number"
             variant="standard"
@@ -66,6 +76,7 @@ export default function FormPropsTextFields() {
             className='double-line'
             required
             id="storage"
+            value={form.storage}
             label="Estoque"
             type="number"
             variant="standard"
@@ -80,6 +91,7 @@ export default function FormPropsTextFields() {
           className='single-line'
           required
           id="description"
+          value={form.description}
           label="Descrição do produto"
           variant="standard"
           onChange={handleForm}
@@ -89,6 +101,7 @@ export default function FormPropsTextFields() {
           className='single-line'
           required
           id="altSrc"
+          value={form.altSrc}
           label="Descrição da imagem"
           variant="standard"
           onChange={handleForm}

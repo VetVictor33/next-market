@@ -2,21 +2,32 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Image from 'next/image';
+import PlaceHolder from '@/public/assets/icons/logo.svg'
+import DeleteDialog from '../DeleteDialog/DeleteDialog';
 
-export default function ActionAreaCard({ item }) {
-  const { src, name, description, price } = item;
+export default function ActionAreaCard({ item, removeProducts }) {
+  const { id, src, altSrc, name, description, storage, price } = item;
+
+  const handleDeletation = () => {
+    removeProducts(id);
+  }
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
-        <Image src={src} alt={name} height={300} width={350} loading='eager' />
+        <Image src={src || PlaceHolder} alt={altSrc} height={300} width={350} loading='eager' />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {name}
-          </Typography>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <Typography gutterBottom variant="h5" component="div">
+              {name}
+            </Typography>
+            <Typography gutterBottom variant="h5" component="div">
+              {storage}un
+            </Typography>
+          </div>
           <Typography variant="caption" component="div">
             {description}
           </Typography>
@@ -25,6 +36,7 @@ export default function ActionAreaCard({ item }) {
           </Typography>
         </CardContent>
       </CardActionArea>
+      <DeleteDialog confirm={handleDeletation} />
     </Card>
   );
 }
