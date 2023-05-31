@@ -19,7 +19,7 @@ export default function DeleteDialog({ confirm }) {
 
   const handleConfirmation = () => {
     setOpen(false);
-    confirm()
+    confirm();
   }
 
   return (

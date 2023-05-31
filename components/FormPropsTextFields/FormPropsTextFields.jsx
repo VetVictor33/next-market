@@ -9,9 +9,10 @@ import { useLocalStorage } from 'react-use';
 
 export default function FormPropsTextFields() {
   const router = useRouter();
-  const [products, setProducts, removeProducts] = useLocalStorage('products');
+  const [products, setProducts] = useLocalStorage('products');
   const [error, setError] = React.useState(false);
   const [success, setSucess] = React.useState(false);
+  const [firstAdd, setFirstAdd] = React.useState(true);
   const [form, setForm] = React.useState(
     { name: '', price: 0.00, storage: 0.00, description: '', altSrc: '' }
   )
@@ -28,12 +29,14 @@ export default function FormPropsTextFields() {
   const handleSubmit = (e) => {
     if (!form.name || !form.price || isNaN(form.price) || !form.storage || isNaN(form.storage) || !form.description || !form.altSrc) {
       setError(true);
+      if (success) setSucess(false);
       return
     }
     const id = (products.slice(-1)[0].id) + 1;
     const localProducts = [...products, { id, ...form }];
     setProducts(localProducts);
     setSucess(true);
+    setFirstAdd(false);
     setForm({ name: '', price: '', storage: '', description: '', altSrc: '' });
   }
 
@@ -110,8 +113,9 @@ export default function FormPropsTextFields() {
       <div className='buttom-div'>
         <div className='bt-div'>
           <Button variant="text" className='bt'
-            onClick={() => router.push('/')}
-          >Cancelar</Button>
+            onClick={() => router.push('/')}>
+            {firstAdd ? 'Cancelar' : 'Voltar'}
+          </Button>
           <Button variant="contained" className='bt'
             onClick={handleSubmit}
           >Adicionar Produto</Button>

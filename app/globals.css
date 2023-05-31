@@ -127,10 +127,37 @@ a {
   color: rgba(0, 0, 0, 0.87);
 }
 
+.Home .visible-products {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 90vw;
+  height: 80vh;
+  margin: 0 auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.Home .pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .Home .products {
+  top: 0;
+  left: 0;
+  position: absolute;
   display: flex;
   gap: 10px;
-  margin: 0 auto;
+  width: fit-content;
+  transition: 2s;
+}
+
+.Home .products .card {
+  width: 45vw;
 }
 
 .Home .subheader-div {
